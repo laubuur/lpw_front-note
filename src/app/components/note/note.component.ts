@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import BalloonEditor from '@ckeditor/ckeditor5-build-balloon';
 import { NoteService } from '../../services/note.service';
+import { Note } from '../models/note.interface';
 
 @Component({
   selector: 'app-note',
@@ -21,7 +22,7 @@ export class NoteComponent {
   route = inject(ActivatedRoute);
   service = inject(NoteService);
 
-  note: any; 
+  note?: Note; 
 
   timeout: any;
 
@@ -30,9 +31,7 @@ export class NoteComponent {
   }
 
   ngOnInit() {
-    console.log("INITIALISATION");
     this.route.paramMap.subscribe(params => {
-      console.log("SUBSCRIBE");
       if (params.get('id') !== null) {
         this.getNote(Number(params.get('id')));
       }
@@ -42,7 +41,6 @@ export class NoteComponent {
   private getNote(id: number) {
     this.service.get(id).subscribe(result => {
       this.note = result;
-      console.log(this.note);
     })
   }
 
@@ -50,14 +48,17 @@ export class NoteComponent {
     if (this.timeout) {
       clearTimeout(this.timeout);
     }  
-    
+
     this.timeout = setTimeout(() => {
       this.callUpdate();
     }, 500);
   }
 
   private callUpdate() {
-    this.service.update(this.note.content, this.note.id).subscribe();
+    if (this.note) {
+      this.service.update(this.note.content, this.note.id).subscribe();
+    }
+    
   }
 
 
