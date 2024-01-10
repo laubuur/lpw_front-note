@@ -21,4 +21,8 @@ export class NoteService {
   list() {
     return this.http.get('http://127.0.0.1:8000/api/notes');
   }
+
+  get(id: number) {
+    return this.http.get('http://127.0.0.1:8000/api/notes/'+id);
+  }
 }

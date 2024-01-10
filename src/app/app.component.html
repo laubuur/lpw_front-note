@@ -5,14 +5,6 @@
       Nouvelle note
     </button>
   </nav>
-  <div>
-    @for(note of notes; track note) {
-      <div>
-        {{note.content}}
-      </div>
-    }
-  </div>
-  @if(false) {
-    <app-note></app-note>
-  }
+  <router-outlet></router-outlet>
 </div>
+ 

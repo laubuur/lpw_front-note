@@ -1,3 +1,4 @@
-<ckeditor [editor]="editor" [(ngModel)]="content"></ckeditor>
+@if(note) {
+    <ckeditor [editor]="editor" [(ngModel)]="note.content" (ngModelChange)="updateNote()"></ckeditor>
+}
 
-<button (click)="test()">test</button>
